@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Task Manager</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1 class="text-center">Task Manager</h1>
+    <p class="display-6 text-center">This is a to do list</p>
+    {% if tasks|length <1 %}
+    <h4 class="text-center">There are no tasks added</h4>
+    {% else %}
+    <table class="table table-light table-bordered table-striped table-hover table-sm">
+        <thead class="thead-light">
+            <tr>
+                <th>Task</th>
+                <th>Added</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        {% for task in tasks %}
+        <tr>
+            <td>{{task.content}}</td>
+            <td>{{task.date.date()}}</td>
+            <td>
+                <a href="/delete/{{task.id}}">Delete</a>
+                <a href="/update/{{task.id}}">Update</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {%endif%}
+    <form action="/" method="POST" class="text-center">
+        <label for="task">Task : </label>
+        <input type="text" id="task" name="task" value="add your task here" onfocus='{this.value=""}'><br><br>
+        <!--<input type="radio" id="b1" name="buttons" value="b1">
+        <label for="b1">OPTION 1</label><br><br>
+        <input type="radio" id="b2" name="buttons" value="b2"> 
+        <label for="b2">OPTION 2</label><br><br>
+        <input type="checkbox" name="c1" id="cb1">
+        <label for="c1">checkbox1</label><br><br>
+        <input type="checkbox" name ="c2" id="cb2">
+        <label for="c2">Checkbox2</label><br><br>> -->
+        <button type="submit" id="submit" name="submit" value="submit">Submit</button>
+    </form>
+    
+</div>
+{% endblock %}
